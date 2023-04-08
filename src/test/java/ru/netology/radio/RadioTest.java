@@ -4,9 +4,16 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class RadioTest {
+    Radio cond = new Radio();
+
+    @Test
+    public void test() {
+        Radio cond = new Radio(10);
+        Assertions.assertEquals(10, cond.getQuantityRadioStation());
+    }
+
     @Test
     public void shouldSetRadioStation() {
-        Radio cond = new Radio();
 
         cond.setCurrentRadioStation(5);
 
@@ -18,11 +25,10 @@ public class RadioTest {
 
     @Test
     public void shouldNotSetRadioStationAboveMax() {
-        Radio cond = new Radio();
 
         cond.setCurrentRadioStation(10);
 
-        int expected = 0;
+        int expected = cond.getMinRadioStation();
         int actual = cond.getCurrentRadioStation();
 
         Assertions.assertEquals(expected, actual);
@@ -30,11 +36,10 @@ public class RadioTest {
 
     @Test
     public void shouldNotSetRadioStationBelowMin() {
-        Radio cond = new Radio();
 
         cond.setCurrentRadioStation(-1);
 
-        int expected = 0;
+        int expected = cond.getMinRadioStation();
         int actual = cond.getCurrentRadioStation();
 
         Assertions.assertEquals(expected, actual);
@@ -42,11 +47,10 @@ public class RadioTest {
 
     @Test
     public void shouldSetToMaxRadioStation() {
-        Radio cond = new Radio();
 
         cond.setToMaxRadioStation();
 
-        int expected = 9;
+        int expected = cond.getMaxRadioStation();
         int actual = cond.getCurrentRadioStation();
 
         Assertions.assertEquals(expected, actual);
@@ -54,11 +58,10 @@ public class RadioTest {
 
     @Test
     public void shouldSetToMinRadioStation() {
-        Radio cond = new Radio();
 
         cond.setToMinRadioStation();
 
-        int expected = 0;
+        int expected = cond.getMinRadioStation();
         int actual = cond.getCurrentRadioStation();
 
         Assertions.assertEquals(expected, actual);
@@ -66,8 +69,8 @@ public class RadioTest {
 
     @Test
     public void shouldSwitchingNextRadioStation() {
-        Radio cond = new Radio();
-        cond.setCurrentRadioStation(0);
+
+        cond.setCurrentRadioStation(cond.getMinRadioStation());
 
         cond.SwitchingNextRadioStation();
 
@@ -79,12 +82,12 @@ public class RadioTest {
 
     @Test
     public void shouldSwitchingNextRadioStationNumber0() {
-        Radio cond = new Radio();
-        cond.setCurrentRadioStation(9);
+
+        cond.setCurrentRadioStation(cond.getMaxRadioStation());
 
         cond.SwitchingNextRadioStation();
 
-        int expected = 0;
+        int expected = cond.getMinRadioStation();
         int actual = cond.getCurrentRadioStation();
 
         Assertions.assertEquals(expected, actual);
@@ -92,7 +95,7 @@ public class RadioTest {
 
     @Test
     public void shouldSwitchingNextRadioStationAboveMax() {
-        Radio cond = new Radio();
+
         cond.setCurrentRadioStation(20);
 
         cond.SwitchingNextRadioStation();
@@ -105,7 +108,7 @@ public class RadioTest {
 
     @Test
     public void shouldSwitchingNextRadioStationBelowMin() {
-        Radio cond = new Radio();
+
         cond.setCurrentRadioStation(-20);
 
         cond.SwitchingNextRadioStation();
@@ -118,7 +121,7 @@ public class RadioTest {
 
     @Test
     public void shouldSwitchingPrevRadioStation() {
-        Radio cond = new Radio();
+
         cond.setCurrentRadioStation(7);
 
         cond.SwitchingPrevRadioStation();
@@ -131,12 +134,12 @@ public class RadioTest {
 
     @Test
     public void shouldSwitchingPrevRadioStationNumber9() {
-        Radio cond = new Radio();
-        cond.setCurrentRadioStation(0);
+
+        cond.setCurrentRadioStation(cond.getMinRadioStation());
 
         cond.SwitchingPrevRadioStation();
 
-        int expected = 9;
+        int expected = cond.getMaxRadioStation();
         int actual = cond.getCurrentRadioStation();
 
         Assertions.assertEquals(expected, actual);
@@ -144,12 +147,12 @@ public class RadioTest {
 
     @Test
     public void shouldSwitchingPrevRadioStationAboveMax() {
-        Radio cond = new Radio();
+
         cond.setCurrentRadioStation(20);
 
         cond.SwitchingPrevRadioStation();
 
-        int expected = 9;
+        int expected = cond.getMaxRadioStation();
         int actual = cond.getCurrentRadioStation();
 
         Assertions.assertEquals(expected, actual);
@@ -157,12 +160,12 @@ public class RadioTest {
 
     @Test
     public void shouldSwitchingPrevRadioStationBelowMin() {
-        Radio cond = new Radio();
+
         cond.setCurrentRadioStation(-20);
 
         cond.SwitchingPrevRadioStation();
 
-        int expected = 9;
+        int expected = cond.getMaxRadioStation();
         int actual = cond.getCurrentRadioStation();
 
         Assertions.assertEquals(expected, actual);
@@ -171,7 +174,6 @@ public class RadioTest {
     // currentVolumeLevel
     @Test
     public void shouldSetVolumeLevel() {
-        Radio cond = new Radio();
 
         cond.setCurrentVolumeLevel(5);
 
@@ -183,11 +185,10 @@ public class RadioTest {
 
     @Test
     public void shouldNotSetVolumeLevelAboveMax() {
-        Radio cond = new Radio();
 
         cond.setCurrentVolumeLevel(101);
 
-        int expected = 0;
+        int expected = cond.getMinVolumeLevel();
         int actual = cond.getCurrentVolumeLevel();
 
         Assertions.assertEquals(expected, actual);
@@ -195,11 +196,10 @@ public class RadioTest {
 
     @Test
     public void shouldNotSetVolumeLevelBelowMin() {
-        Radio cond = new Radio();
 
         cond.setCurrentVolumeLevel(-10);
 
-        int expected = 0;
+        int expected = cond.getMinVolumeLevel();
         int actual = cond.getCurrentVolumeLevel();
 
         Assertions.assertEquals(expected, actual);
@@ -207,11 +207,10 @@ public class RadioTest {
 
     @Test
     public void shouldSetToMaxVolumeLevel() {
-        Radio cond = new Radio();
 
         cond.setToMaxVolumeLevel();
 
-        int expected = 100;
+        int expected = cond.getMaxVolumeLevel();
         int actual = cond.getCurrentVolumeLevel();
 
         Assertions.assertEquals(expected, actual);
@@ -219,11 +218,10 @@ public class RadioTest {
 
     @Test
     public void shouldSetToMinVolumeLevel() {
-        Radio cond = new Radio();
 
         cond.setToMinVolumeLevel();
 
-        int expected = 0;
+        int expected = cond.getMinVolumeLevel();
         int actual = cond.getCurrentVolumeLevel();
 
         Assertions.assertEquals(expected, actual);
@@ -231,7 +229,7 @@ public class RadioTest {
 
     @Test
     public void shouldSwitchingNextVolumeLevel() {
-        Radio cond = new Radio();
+
         cond.setCurrentVolumeLevel(50);
 
         cond.SwitchingNextVolumeLevel();
@@ -244,12 +242,12 @@ public class RadioTest {
 
     @Test
     public void atTheMaxVolumeLevelSwitchingForwardDoesNothing() {
-        Radio cond = new Radio();
-        cond.setCurrentVolumeLevel(100);
+
+        cond.setCurrentVolumeLevel(cond.getMaxVolumeLevel());
 
         cond.SwitchingNextVolumeLevel();
 
-        int expected = 100;
+        int expected = cond.getMaxVolumeLevel();
         int actual = cond.getCurrentVolumeLevel();
 
         Assertions.assertEquals(expected, actual);
@@ -257,7 +255,7 @@ public class RadioTest {
 
     @Test
     public void shouldSwitchingNextVolumeLevelAboveMax() {
-        Radio cond = new Radio();
+
         cond.setCurrentVolumeLevel(200);
 
         cond.SwitchingNextVolumeLevel();
@@ -270,7 +268,7 @@ public class RadioTest {
 
     @Test
     public void shouldSwitchingNextVolumeLevelBelowMin() {
-        Radio cond = new Radio();
+
         cond.setCurrentVolumeLevel(-20);
 
         cond.SwitchingNextVolumeLevel();
@@ -283,7 +281,7 @@ public class RadioTest {
 
     @Test
     public void shouldSwitchingPrevVolumeLevel() {
-        Radio cond = new Radio();
+
         cond.setCurrentVolumeLevel(50);
 
         cond.SwitchingPrevVolumeLevel();
@@ -296,12 +294,12 @@ public class RadioTest {
 
     @Test
     public void atTheMinVolumeLevelSwitchingForwardDoesNothing() {
-        Radio cond = new Radio();
-        cond.setCurrentVolumeLevel(0);
+
+        cond.setCurrentVolumeLevel(cond.getMinVolumeLevel());
 
         cond.SwitchingPrevVolumeLevel();
 
-        int expected = 0;
+        int expected = cond.getMinVolumeLevel();
         int actual = cond.getCurrentVolumeLevel();
 
         Assertions.assertEquals(expected, actual);
@@ -309,12 +307,12 @@ public class RadioTest {
 
     @Test
     public void shouldSwitchingPrevVolumeLevelAboveMax() {
-        Radio cond = new Radio();
+
         cond.setCurrentVolumeLevel(200);
 
         cond.SwitchingPrevVolumeLevel();
 
-        int expected = 0;
+        int expected = cond.getMinVolumeLevel();
         int actual = cond.getCurrentVolumeLevel();
 
         Assertions.assertEquals(expected, actual);
@@ -322,12 +320,12 @@ public class RadioTest {
 
     @Test
     public void shouldSwitchingPrevVolumeLevelBelowMin() {
-        Radio cond = new Radio();
+
         cond.setCurrentVolumeLevel(-20);
 
         cond.SwitchingPrevVolumeLevel();
 
-        int expected = 0;
+        int expected = cond.getMinVolumeLevel();
         int actual = cond.getCurrentVolumeLevel();
 
         Assertions.assertEquals(expected, actual);
